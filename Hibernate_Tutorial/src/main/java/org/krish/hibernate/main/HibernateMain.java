@@ -92,6 +92,10 @@ public class HibernateMain {
             e.printStackTrace();
             return null;
         }
+        finally {
+            if(session!=null)
+                session.close();
+        }
     }
 
     public static void main(String[] args)
