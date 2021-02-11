@@ -79,16 +79,23 @@ public class HibernateMain {
 
         try
         {
-            Address address = Address.builder()
+            Address homeAddress = Address.builder()
                                      .city("Kolkata")
                                      .pin("700096")
                                      .street("P-14")
                                      .state("West Bengal")
                                       .build();
+            Address officeAddress = Address.builder()
+                                        .city("Bangalore")
+                                        .pin("560037")
+                                        .street("5th & 6th Block")
+                                        .state("Karnataka")
+                                        .build();
 
             UserDetails userDetails = UserDetails.builder()
                                         .userName("Krish")
-                                        .address(address)
+                                        .homeAddress(homeAddress)
+                                        .officeAddress(officeAddress)
                                         .description("Java Developer")
                                         .joinedDate(LocalDateTime.now())
                                         .build();
@@ -123,8 +130,8 @@ public class HibernateMain {
         try
         {
             UserDetails userDetails = session.load(UserDetails.class,userId);
-            System.out.println(userDetails.getDescription());
-            System.out.println(userDetails.getAddress());
+            /*System.out.println(userDetails.getDescription());
+            System.out.println(userDetails.getAddress());*/
             session.getTransaction().commit();
             return userDetails;
 
