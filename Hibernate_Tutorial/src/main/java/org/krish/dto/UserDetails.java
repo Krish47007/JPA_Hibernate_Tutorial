@@ -22,8 +22,10 @@ public class UserDetails {
     @Column(name = "JOINED_DATE")
     private LocalDateTime joinedDate;
     @Column(name = "USER_DESC")
-    @Basic(fetch = FetchType.LAZY,optional = false)
     private String description;
-    @Column(name = "USER_ADDRESS")
-    private String address;
+    /*@Column(name = "USER_ADDRESS")
+    private String address;*/
+
+    @Embedded
+    private Address address;
 }
