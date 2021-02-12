@@ -6,8 +6,8 @@ import org.krish.dto.Address;
 import org.krish.dto.UserDetails;
 import org.krish.hibernate.util.HibernateUtil;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class HibernateMain {
 
@@ -74,7 +74,7 @@ public class HibernateMain {
     */}
 
     void saveUser_3(SessionFactory sf)
-    {
+    {/*
         Session session = sf.openSession();
 
         try
@@ -119,6 +119,55 @@ public class HibernateMain {
                 session.close();
         }
 
+    */}
+
+    void saveUser_4(SessionFactory sf)
+    {
+
+        Session session = sf.openSession();
+
+        try
+        {
+            Address homeAddress = Address.builder()
+                    .city("Kolkata")
+                    .pin("700096")
+                    .street("P-14")
+                    .state("West Bengal")
+                    .build();
+            Address officeAddress = Address.builder()
+                    .city("Bangalore")
+                    .pin("560037")
+                    .street("5th & 6th Block")
+                    .state("Karnataka")
+                    .build();
+
+            UserDetails userDetails = UserDetails.builder()
+                    .userName("Krish")
+                    .listOfAddress(Set.of(homeAddress,officeAddress))
+                    .description("Java Developer")
+                    .joinedDate(LocalDateTime.now())
+                    .build();
+
+            //Saving
+            session.beginTransaction();
+
+            session.save(userDetails);
+
+            session.getTransaction().commit();
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+
+            if(session != null)
+                session.close();
+        }
+
+
     }
 
     UserDetails getUser(Long userId,SessionFactory sf)
@@ -155,7 +204,9 @@ public class HibernateMain {
         //main.saveUser_1(sf);
         //main.saveUser_2(sf);
 
-        main.saveUser_3(sf);
+        //main.saveUser_3(sf);
+
+        main.saveUser_4(sf);
 
         //main.getUser(2L,sf);
     }

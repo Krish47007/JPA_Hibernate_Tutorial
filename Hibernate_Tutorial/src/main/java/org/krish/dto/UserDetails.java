@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class UserDetails {
     /*@Column(name = "USER_ADDRESS")
     private String address;*/
 
-    @Embedded
+/*    @Embedded
     @AttributeOverrides(
             {
                     @AttributeOverride(name = "street",column = @Column(name = "HOME_STREET_NAME")),
@@ -47,5 +48,8 @@ public class UserDetails {
                     @AttributeOverride(name = "pin",column = @Column(name = "OFFICE_PIN_CODE"))
             }
     )
-    private Address officeAddress;
+    private Address officeAddress;*/
+
+    @ElementCollection
+    private Set<Address> listOfAddress;
 }
