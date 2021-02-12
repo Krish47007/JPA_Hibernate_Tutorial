@@ -1,9 +1,13 @@
 package org.krish.dto;
 
 import lombok.*;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -51,5 +55,12 @@ public class UserDetails {
     private Address officeAddress;*/
 
     @ElementCollection
-    private Set<Address> listOfAddress;
+    @JoinTable(name = "USER_ADDRESS",
+                joinColumns = @JoinColumn(name = "USER_ID")
+                 )
+    @GenericGenerator(name="increment-gen",strategy="increment")  //Creating a sequence generator
+    @CollectionId(columns = {
+                                @Column(name = "ADDRESS_ID")
+                            },generator = "increment-gen",type = @Type(type = "long"))
+    private List<Address> listOfAddress;
 }

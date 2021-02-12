@@ -7,6 +7,7 @@ import org.krish.dto.UserDetails;
 import org.krish.hibernate.util.HibernateUtil;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public class HibernateMain {
@@ -143,7 +144,7 @@ public class HibernateMain {
 
             UserDetails userDetails = UserDetails.builder()
                     .userName("Krish")
-                    .listOfAddress(Set.of(homeAddress,officeAddress))
+                    .listOfAddress(List.of(homeAddress,officeAddress))
                     .description("Java Developer")
                     .joinedDate(LocalDateTime.now())
                     .build();
