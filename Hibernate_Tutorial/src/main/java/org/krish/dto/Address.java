@@ -1,10 +1,17 @@
 package org.krish.dto;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Embeddable
-public class Address {
+public class Address {  //Its a value object now and its associated with UserDetails
 
     @Column(name = "STREET_NAME")
     private String street;
@@ -12,38 +19,6 @@ public class Address {
     private String city;
     @Column(name = "STATE_NAME")
     private String state;
-    @Column(name = "PHONE_NUM")
-    private String phone;
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    @Column(name = "PIN_CODE")
+    private String pin;
 }
