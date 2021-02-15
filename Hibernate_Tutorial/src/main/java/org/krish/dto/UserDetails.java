@@ -69,6 +69,7 @@ public class UserDetails {
     private Vehicle vehicle;
 
     @ManyToOne
+    @JoinColumn(name = "DEPT_ID")
     private Department department;
 
 

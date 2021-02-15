@@ -21,11 +21,11 @@ public class Department {
     @Column(name = "DEPT_NAME")
     private String deptName;
 
-    @OneToMany
-    @JoinTable(
+    @OneToMany(mappedBy = "department")
+  /*  @JoinTable(
             name = "USER_DEPT",
             joinColumns = @JoinColumn(name = "DEPT_ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID")
-    )
+    )*/
     private List<UserDetails> employeeList;
 }
