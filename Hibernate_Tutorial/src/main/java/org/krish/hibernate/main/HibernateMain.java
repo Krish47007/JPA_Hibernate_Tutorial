@@ -2,13 +2,11 @@ package org.krish.hibernate.main;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.krish.dto.Address;
-import org.krish.dto.Department;
-import org.krish.dto.UserDetails;
-import org.krish.dto.Vehicle;
+import org.krish.dto.*;
 import org.krish.hibernate.util.HibernateUtil;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -297,6 +295,80 @@ public class HibernateMain {
 
     }
 
+    void saveUser_7(SessionFactory sf)
+    {
+        Session session = sf.openSession();
+
+        try
+        {
+            Address homeAddress = Address.builder()
+                    .city("Kolkata")
+                    .pin("700096")
+                    .street("P-14")
+                    .state("West Bengal")
+                    .build();
+            Address officeAddress = Address.builder()
+                    .city("Bangalore")
+                    .pin("560037")
+                    .street("5th & 6th Block")
+                    .state("Karnataka")
+                    .build();
+
+            Vehicle vehicle = Vehicle.builder()
+                    .name("Honda")
+                    .build();
+
+            UserDetails userDetails = UserDetails.builder()
+                    .userName("Krish")
+                    .listOfAddress(List.of(homeAddress,officeAddress))
+                    .description("Java Developer")
+                    .joinedDate(LocalDateTime.now())
+                    .vehicle(vehicle)
+                    .build();
+
+            Department department = Department.builder()
+                    .deptName("IT")
+                    .build();
+
+            userDetails.setDepartment(department);
+            department.setEmployeeList(List.of(userDetails));
+
+            Project p1 = Project.builder().projectName("TEST-A")
+                                          .empList(Arrays.asList(userDetails))
+                                           .build();
+            userDetails.setProjectList(Arrays.asList(p1));
+
+            //Saving
+            session.beginTransaction();
+
+            session.save(userDetails);
+            /*
+             *   Since Vehicle in UserDetails is non-transient and non-static and we dont have cascade types for this
+             *  1-1 relationship we have to manually persist the vehicle as well while saving UserDetails otherwise
+             *   hibernate will throw an exception.
+             * */
+            session.save(vehicle);
+
+            session.save(department);
+
+            session.save(p1);
+
+            session.getTransaction().commit();
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        finally {
+
+            if(session != null)
+                session.close();
+        }
+
+    }
+
     UserDetails getUser(Long userId,SessionFactory sf)
     {
         Session session = sf.openSession();
@@ -339,7 +411,7 @@ public class HibernateMain {
 
         //main.saveUser_5(sf);
 
-        main.saveUser_6(sf);
+        main.saveUser_7(sf);
 
         //main.getUser(1L,sf);
     }

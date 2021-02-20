@@ -72,6 +72,12 @@ public class UserDetails {
     @JoinColumn(name = "DEPT_ID")
     private Department department;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "USER_PROJECT",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRJ_ID")}
+    )
+    private List<Project> projectList;
 
 }

@@ -31,5 +31,6 @@
         <mapping class="org.krish.dto.UserDetails" />
         <mapping class="org.krish.dto.Vehicle" />
         <mapping class="org.krish.dto.Department" />
+        <mapping class="org.krish.dto.Project" />
     </session-factory>
 </hibernate-configuration>
