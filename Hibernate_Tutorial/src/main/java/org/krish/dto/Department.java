@@ -21,7 +21,7 @@ public class Department {
     @Column(name = "DEPT_NAME")
     private String deptName;
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL)
   /*  @JoinTable(
             name = "USER_DEPT",
             joinColumns = @JoinColumn(name = "DEPT_ID"),

@@ -21,7 +21,7 @@ public class Project {
     @Column(name = "PROJECT_NAME")
     private String projectName;
 
-    @ManyToMany(mappedBy = "projectList")
+    @ManyToMany(mappedBy = "projectList",cascade = CascadeType.ALL)
     private List<UserDetails> empList;
 
 }
