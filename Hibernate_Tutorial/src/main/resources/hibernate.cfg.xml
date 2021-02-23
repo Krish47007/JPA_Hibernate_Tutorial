@@ -32,5 +32,9 @@
         <mapping class="org.krish.dto.Vehicle" />
         <mapping class="org.krish.dto.Department" />
         <mapping class="org.krish.dto.Project" />
+        <mapping class="org.krish.dto.Employee" />
+        <mapping class="org.krish.dto.Device" />
+        <mapping class="org.krish.dto.Laptop" />
+        <mapping class="org.krish.dto.Mobile" />
     </session-factory>
 </hibernate-configuration>

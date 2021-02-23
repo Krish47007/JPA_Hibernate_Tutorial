@@ -398,7 +398,7 @@ public class HibernateMain {
     }
 
     void saveUser_8(SessionFactory sf)
-    {
+    {/*
         Session session = sf.openSession();
 
         try
@@ -444,16 +444,11 @@ public class HibernateMain {
             session.beginTransaction();
 
             session.save(userDetails);
-            /*
-             *   Since Vehicle in UserDetails is non-transient and non-static and we dont have cascade types for this
-             *  1-1 relationship we have to manually persist the vehicle as well while saving UserDetails otherwise
-             *   hibernate will throw an exception.
-             * */
-           /* session.save(vehicle);
+           session.save(vehicle);
 
             session.save(department);
 
-            session.save(p1);*/
+            session.save(p1);
 
             session.getTransaction().commit();
 
@@ -469,6 +464,47 @@ public class HibernateMain {
                 session.close();
         }
 
+    */}
+
+    void saveEmployeeUsingSingleTableStrategy(SessionFactory sf)
+    {
+        Session session = sf.openSession();
+
+        try
+        {
+           session.beginTransaction();
+
+           //Creating employee
+           Employee employee = new Employee();
+           employee.setName("Krish");
+
+           //Creating Mobile
+           Mobile mobile = new Mobile();
+           mobile.setDeviceType("Mobile");
+           mobile.setEmployee(employee);
+           mobile.setCameraType("Triple Camera setup");
+
+           //Creating Laptop
+            Laptop laptop = new Laptop();
+            laptop.setDeviceType("Laptop");
+            laptop.setSsdType("PCI-E Gen.3");
+            laptop.setEmployee(employee);
+
+            employee.setDeviceList(Arrays.asList(laptop,mobile));
+
+            session.save(employee);
+
+            session.getTransaction().commit();
+
+        }catch (Exception e)
+        {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            if(session != null)
+                session.close();
+        }
     }
     public static void main(String[] args)
     {
@@ -486,8 +522,11 @@ public class HibernateMain {
 
         //main.saveUser_7(sf);
 
-        main.saveUser_8(sf);
+        //main.saveUser_8(sf);
 
         //main.getUser(1L,sf);
+
+        main.saveEmployeeUsingSingleTableStrategy(sf);
+
     }
 }
