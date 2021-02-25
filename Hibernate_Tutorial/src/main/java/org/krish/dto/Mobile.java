@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "Mobile")
-@DiscriminatorValue("Hand-Held")
 public class Mobile extends Device{
 
     @Column(name = "Camera_setup")

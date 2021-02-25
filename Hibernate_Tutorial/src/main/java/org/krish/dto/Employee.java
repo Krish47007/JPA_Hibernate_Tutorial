@@ -15,7 +15,7 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "EMP_ID")
     private Long id;
     @Column(name = "EMP_NAME")
